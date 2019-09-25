@@ -1,0 +1,1747 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Menlo-Regular;\f2\fnil\fcharset0 Menlo-Bold;
+\f3\fnil\fcharset0 HelveticaNeue;\f4\fswiss\fcharset0 ArialMT;\f5\fnil\fcharset0 Menlo-Italic;
+\f6\fmodern\fcharset0 Courier;\f7\fnil\fcharset0 Menlo-BoldItalic;\f8\froman\fcharset0 Times-Roman;
+}
+{\colortbl;\red255\green255\blue255;\red255\green39\blue18;\red0\green0\blue0;\red42\green0\blue255;
+\red100\green100\blue100;\red127\green0\blue85;\red38\green38\blue38;\red255\green255\blue255;\red159\green159\blue159;
+\red109\green109\blue109;\red83\green165\blue98;\red0\green0\blue192;\red106\green62\blue62;\red11\green85\blue25;
+\red63\green127\blue95;\red254\green73\blue64;\red0\green128\blue128;\red63\green127\blue127;\red65\green105\blue225;
+\red63\green95\blue191;\red0\green0\blue233;\red217\green11\blue0;\red255\green83\blue8;\red0\green0\blue0;
+\red255\green255\blue255;\red127\green0\blue85;\red100\green100\blue100;\red106\green62\blue62;\red217\green11\blue0;
+\red42\green0\blue255;\red255\green39\blue18;\red0\green128\blue128;\red63\green127\blue127;\red0\green0\blue192;
+}
+{\*\expandedcolortbl;;\csgenericrgb\c100000\c15294\c7059;\csgenericrgb\c0\c0\c0;\csgenericrgb\c16471\c0\c100000;
+\csgenericrgb\c39216\c39216\c39216;\csgenericrgb\c49804\c0\c33333;\cssrgb\c20000\c20000\c20000;\cssrgb\c100000\c100000\c100000;\cssrgb\c68627\c68627\c68627;
+\cssrgb\c50196\c50196\c50196;\cssrgb\c38824\c69412\c45882;\csgenericrgb\c0\c0\c75294;\csgenericrgb\c41569\c24314\c24314;\cssrgb\c0\c40000\c12941;
+\csgenericrgb\c24706\c49804\c37255;\csgenericrgb\c99608\c28627\c25098;\csgenericrgb\c0\c50196\c50196;\csgenericrgb\c24706\c49804\c49804;\csgenericrgb\c25490\c41176\c88235;
+\csgenericrgb\c24706\c37255\c74902;\cssrgb\c0\c0\c93333;\csgenericrgb\c85098\c4314\c0;\csgenericrgb\c100000\c32549\c3137;\csgray\c0;
+\csgray\c100000;\csgenericrgb\c49804\c0\c33333;\csgenericrgb\c39216\c39216\c39216;\csgenericrgb\c41569\c24314\c24314;\csgenericrgb\c85098\c4314\c0;
+\csgenericrgb\c16471\c0\c100000;\csgenericrgb\c100000\c15294\c7059;\csgenericrgb\c0\c50196\c50196;\csgenericrgb\c24706\c49804\c49804;\csgenericrgb\c0\c0\c75294;
+}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs28 \cf0 Chapter 4 \
+Microservices: Small autonomous services that work together.\
+- RESTful Web Services\
+- Small Well Chosen Deployable Units\
+- Cloud Enabled\
+\
+Microservices1 \'97> Microservices2 \'97> Microservices3 \'97> Microservices4 \
+Its a set of Microservices with well defined boundaries, which are interacting with each other.\
+\
+Microservice1   A1 A2\
+Microservice2   B1 B2 B3 B4 \
+Microservice3   C1 \
+\
+These are all cloud enabled means I can have multiple instances for each of the Microservice. If there is a load balancing problem we can have one more instance of a Microservice  without having a lot of configuration and this property is called Cloud Enabled.\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\b \cf2 Section 4.3 Challenges with Microservices\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+BOUNDED CONTEXT: 
+\b0 what is right boundary for our micro service.\
+
+\b \
+CONFIGURATION MANAGEMENT:
+\b0  Tons of Micro-services with multiple instances\
+
+\b \
+DYNAMIC SCALE UP AND SCALE DOWN
+\b0 : Taking old instance down and putting new\
+up dynamically and distribute the load among them.\
+
+\b \
+VISIBILITY: 
+\b0 We need to have a centralized log, which we can use to find the bugs and what happens with the specific request and all that needs to be automated. \
+
+\b \
+PACK OF CARDS: 
+\b0 We can one micro service from which rest of the micro services can be build upon and if that fundamental micro service breaks down the entire application can break down. \
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\b \cf2 Section 4.4 Spring Cloud\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 Configuration Management
+\b0 : Spring Cloud Config Server \
+\
+
+\b Example
+\b0 :\
+CurrencyCalculationService \'97>\
+CurrencyExchangeService   \'97>  Spring Cloud Config Server \'97> Git  \
+LimitsService                        \'97>\
+\
+We can save all of our Micro services in one centralized Place in Git and Spring Cloud Config Server can be used to expose that configuration to all the micro services, it helps us keeps all the configuration in one place and it is very easy to maintain.\
+\
+
+\b Dynamic scale up and down: 
+\b0 Naming Server (Eureka), Ribbon (Client Side Load Balancing), Feign (Easier REST Clients).\
+\
+
+\b NamingServer have two important features:\
+Service Registration:
+\b0  All Micro Services can register with Micro Service.\
+
+\b Service Discovery:
+\b0  CurrencyCalculationService can ask Eureka NamingServer to provide me the current instances of CurrencyExchangeService and namingServer can provide the URLs for CurrencyExchangeService\'92s. This helps to establish dynamic relationship between the CurrencyCalculationService and the instance of CurrencyExchangeService. RIBBON is used for Client side Load Balancing.\
+so CurrencyCalculationService will host RIBBON. It will make sure that Load is evenly distributed among the instances of CurrencyExchangeService. \
+\
+
+\b Example
+\b0 : CurrencyCalculationService is talking to multiple instances of\
+                 CurrencyExchangeService and the naming Server Distributes the Load\
+                 equally to all instances of the micro service. \
+CurrencyCalculationService \'97>Ribbon(NamingServer)\'97>CurrencyExchangeService1\
+								         	\'97> CurrencyExchangeService2 ..\
+\
+
+\b Feign: 
+\b0 Used as a Mechanism to write simple RESTFUL Clients\
+
+\b Visibility and Monitoring: 
+\b0 Zipkin Distributed Tracing, Netflix API Gateway \
+will be using Spring Cloud to assign an ID to a request, across multiple components and Zipkin Distributed Tracing will be used to trace the request across multiple components. API Gateway Provides a solution for micro services having same properties such as Logging, Security, and Analytics so we don\'92t have to implement all those features in each Micro Service and we will be using Netflix ZUUL Gateway to solve this problem. \
+\
+
+\b FAULT TOLERANCE
+\b0 : When micro services break down and micro services based on that also break down so we use Fault Tolerance and 
+\b Hystrix is a tool for it.\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf2 Section 4.5 Advantages of Micro services Architecture\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf3 New Technology & Process Adaption: 
+\b0 We can have Micro Services in different languages and they all can talk to each other.\
+
+\b Dynamic Scaling: 
+\b0 We can scale up and down based on the load. \
+
+\b Faster Release Cycles:
+\b0  Because we are making smaller components it means we can release it faster and add in new features easily. \
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\b \cf2 Section 4.6 Microservices Components - Standardizing Ports and URL\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\b0 \cf3 We will be building 7 different applications and we have to standardized the Ports where all the applications can run. \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\b \cf3 Github.com/in28minutes/spring-microservices
+\b0  also contains the URL we need to use.\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\b \cf2 Section 4.7  step 1 \'97 Part 1 Intro. to Limits Microservice and Spring Cloud Config Server\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\b0 \cf3 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\fs24 \cf0 {{\NeXTGraphic Screen Shot 2019-08-23 at 11.17.51 PM.png \width8620 \height5020
+}¬}\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\fs28 \cf3 \
+\
+These are the Components we will be creating in this section.\
+Each Micro service have its own configuration and it could be from connecting to Database to Business Logic. \
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\fs24 \cf0 {{\NeXTGraphic Screen Shot 2019-08-24 at 12.49.52 PM.png \width7500 \height3740
+}¬}\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\fs28 \cf3 \
+\
+A single Micro service can have multiple env. Such as Multiple QA env and Multiple Production envs. \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\b \cf3 \
+Spring Cloud Config Server 
+\b0 wants every configuration to be in the Git repository and 
+\b Spring Cloud Config Server 
+\b0 will take care of managing the configuration and providing it to the specific micro service and 
+\b Spring Cloud Config Server 
+\b0 would act as centralized configuration application. \
+\
+we can connect 
+\b Spring Cloud Config Server 
+\b0 with our Git repository and it can serve as configuration based on the different needs of different instances for all the micro services. \
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\b \cf2 Section 4.8 Step 1 \'97 Part 2 \'97 Setting up Limits Micro-Service\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\b0 \cf3 start.spring.io\
+WebTools, actuator, MySql\
+Run the Project\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\b \cf2 Section 4.9 Step 2 \'97 Creating a hard coded limits service\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\b0 \cf3 We want to get Configurations from 
+\b Spring Cloud Config Server 
+\b0 for LimitsService.\
+we will configure few values in application.properties using the LimitService.  \
+ \
+In Application.Properties give a name to our application and as we create more application, we will give name to each application, so we can identify them.  \
+\pard\pardeftab720\partightenfactor0
+
+\f1\fs24 \cf0 spring.application.name = \cf4 limits-service\
+\pard\pardeftab720\partightenfactor0
+
+\fs28 \cf3 \
+we created a class 
+\f2\b \cf0 LimitsConfigurationController.java
+\f1\b0  and it is going to be RestController, we want to expose service from here.\
+\
+In Class 
+\f2\b LimitsConfigurationController.java have method 
+\f1\b0 \ul retrieveLimitsFromConfigurations.java \ulnone and a Class LimitConfiguration.java in .bean Package and HARDCODED Values.\
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 @RestController\cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf6 public
+\f1\b0 \cf0  
+\f2\b \cf6 class
+\f1\b0 \cf0  LimitsConfigurationController \{\
+	\
+	\cf5 @GetMapping\cf0 (\cf4 "/limits"\cf0 )\
+	
+\f2\b \cf6 public
+\f1\b0 \cf0  LimitConfiguration retrieveLimitsFromConfigurations() \{\
+		\
+		
+\f2\b \cf6 return
+\f1\b0 \cf0  
+\f2\b \cf6 new
+\f1\b0 \cf0  LimitConfiguration(1000,1);\
+\}\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs36 \cf7 \cb8 \expnd0\expndtw0\kerning0
+Classic controllers can be annotated with the 
+\i @Controller
+\i0  annotation. This is simply a specialization of the 
+\i @Component
+\i0  class and allows implementation classes to be autodetected through the classpath scanning.\cb1 \
+
+\i \cb8 @Controller
+\i0  is typically used in combination with a 
+\i @RequestMapping
+\i0  annotation used on request handling methods.
+\f1\fs24 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\b\fs28 \cf2 \
+\pard\pardeftab720\partightenfactor0
+
+\i\b0\fs36 \cf7 \cb8 \expnd0\expndtw0\kerning0
+@RestController
+\i0  is a specialized version of the controller. It includes the 
+\i @Controller
+\i0  and 
+\i @ResponseBody
+\i0  annotations and as a result, simplifies the controller implementation\
+\
+The request handling method is annotated with 
+\i @ResponseBody
+\i0 . This annotation enables automatic serialization of the return object into the 
+\i HttpResponse
+\i0 .\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\fs28 \cf3 \cb1 \kerning1\expnd0\expndtw0 \
+\pard\pardeftab720\partightenfactor0
+
+\fs36 \cf7 \cb8 \expnd0\expndtw0\kerning0
+Typically, if we want to implement the URL handler using traditional 
+\i @RequestMapping
+\i0  annotation, it would have been something like this:\cb1 \
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt\clvertalbase \clshdrawnil \clwWidth648\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadl0 \clpadr0 \gaph\cellx4320
+\clvertalt\clvertalbase \clshdrawnil \clwWidth14392\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadl0 \clpadr0 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs28 \cf9 \cb8 1\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf10 @RequestMapping\cf7 (value = \cf11 "/get/\{id\}"\cf7 , method = RequestMethod.GET)\cell \lastrow\row
+\pard\pardeftab720\partightenfactor0
+
+\fs36 \cf7 The new approach makes it possible to shorten this simply to:\cb1 \
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt\clvertalbase \clshdrawnil \clwWidth648\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadl0 \clpadr0 \gaph\cellx4320
+\clvertalt\clvertalbase \clshdrawnil \clwWidth14392\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadl0 \clpadr0 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs28 \cf9 \cb8 1\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf10 @GetMapping\cf7 (\cf11 "/get/\{id\}"\cf7 )\cell \lastrow\row
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\b \cf2 \cb1 \kerning1\expnd0\expndtw0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\b0 \cf3 \
+\pard\pardeftab720\sl280\partightenfactor0
+
+\b \cf2 \expnd0\expndtw0\kerning0
+Section 4.10 \'97 Step 3 \'97 Enhance limits service to get configuration from application properties\
+
+\b0 \cf3 \
+Add configuration of the method 
+\f1 \cf0 \kerning1\expnd0\expndtw0 LimitConfiguration
+\f0 \cf3 \expnd0\expndtw0\kerning0
+ into application.properties\
+\pard\pardeftab720\partightenfactor0
+
+\f1\fs24 \cf0 \kerning1\expnd0\expndtw0 limits-servcie.maximum = \cf4 9999\cf0 \
+limits-service.minimum = \cf4 99\
+\
+\pard\pardeftab720\partightenfactor0
+
+\fs28 \cf3 Create a new class Configuration.java 
+\f0 \cf3 \
+\pard\pardeftab720\partightenfactor0
+
+\f1 \cf5 @Component\cf0  \
+\cf5 @ConfigurationProperties\cf0 (\cf4 "limits-service"\cf0 )\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf6 public
+\f1\b0 \cf0  
+\f2\b \cf6 class
+\f1\b0 \cf0  Configuration \{\
+	\
+	
+\f2\b \cf6 private
+\f1\b0 \cf0  
+\f2\b \cf6 int
+\f1\b0 \cf0  \cf12 minimum\cf0 ;\
+	
+\f2\b \cf6 private
+\f1\b0 \cf0  
+\f2\b \cf6 int
+\f1\b0 \cf0  \cf12 maximum\cf0 ;\
+	\
+	
+\f2\b \cf6 public
+\f1\b0 \cf0  
+\f2\b \cf6 int
+\f1\b0 \cf0  getMinimum() \{\
+		
+\f2\b \cf6 return
+\f1\b0 \cf0  \cf12 minimum\cf0 ;\
+	\}\
+	
+\f2\b \cf6 public
+\f1\b0 \cf0  
+\f2\b \cf6 int
+\f1\b0 \cf0  getMaximum() \{\
+		
+\f2\b \cf6 return
+\f1\b0 \cf0  \cf12 maximum\cf0 ;\
+	\}\
+	\
+	
+\f2\b \cf6 public
+\f1\b0 \cf0  
+\f2\b \cf6 void
+\f1\b0 \cf0  setMinimum(
+\f2\b \cf6 int
+\f1\b0 \cf0  \cf13 minimum\cf0 ) \{\
+		
+\f2\b \cf6 this
+\f1\b0 \cf0 .\cf12 minimum\cf0  = \cf13 minimum\cf0 ;\
+	\}\
+	\
+	
+\f2\b \cf6 public
+\f1\b0 \cf0  
+\f2\b \cf6 void
+\f1\b0 \cf0  setMaximum(
+\f2\b \cf6 int
+\f1\b0 \cf0  \cf13 maximum\cf0 ) \{\
+		
+\f2\b \cf6 this
+\f1\b0 \cf0 .\cf12 maximum\cf0  = \cf13 maximum\cf0 ;\
+	\}\
+And let Spring handle it and \cf5 @ConfigurationProperties\cf0 (\cf4 "limits-service"\cf0 ) annotation points it to the named application and we can auto wire the Configuration file wherever we need those configurations and thats how we use the Configuration. \
+We are adding name of the application in application.properties file and the vars which are added in the Configuration file which is annotated as \cf5 @ConfigurationProperties\cf0 (\cf4 "limits-service"\cf0 )\
+and use those values in the class below.\
+
+\f2\b \cf6 public
+\f1\b0 \cf0  
+\f2\b \cf6 class
+\f1\b0 \cf0  LimitsConfigurationController \{\
+	\
+	\cf5 @Autowired\cf0 \
+	
+\f2\b \cf6 private
+\f1\b0 \cf0  Configuration \cf12 configuration\cf0 ;\
+	\
+	\cf5 @GetMapping\cf0 (\cf4 "/limits"\cf0 )\
+	
+\f2\b \cf6 public
+\f1\b0 \cf0  LimitConfiguration retrieveLimitsFromConfigurations() \{\
+		\
+		
+\f2\b \cf6 return
+\f1\b0 \cf0  
+\f2\b \cf6 new
+\f1\b0 \cf0  LimitConfiguration(\cf12 configuration\cf0 .getMaximum(),\
+				\cf12 configuration\cf0 .getMinimum());\
+	\}
+\f3\b\fs48 \cf8 \expnd0\expndtw0\kerning0
+om application properties\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\b0\fs28 \cf3 \kerning1\expnd0\expndtw0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\b \cf2 Section 4.11 \'97 Step 4 \'97 Setting up Spring Cloud Config Server\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf3 start.spring.io\
+spring-cloud-config-server application: Config Server, DevTools\
+In application.properties\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0\fs24 \cf0 spring.application.name=\cf4 spring-cloud-\ul \ulc4 config\ulnone -server\cf0 \
+server.port=\cf4 8888\
+\pard\pardeftab720\partightenfactor0
+
+\fs28 \cf3 \
+
+\f0\b \cf2 Section 4.12 \'97 Step 5 \'97 Installing Git
+\f1\b0 \cf3  \
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs32 \cf14 \expnd0\expndtw0\kerning0
+https://git-scm.com\
+Install git from this URL\
+\
+
+\b Creating a new Git Local Repo\
+
+\b0 cd Micro-Services\
+mkdir git-localconfig-repo\
+cd git-localconfig-repo\
+git init\
+\
+Eclipse \'97> spring-cloud-config-server \'97> Link Source\
+             \'97> Browse \'93git-localconfig-repo\'94\
+Than create a new text file \'97> Eclipse \'97> git-localconfig-repo \'97> new File \'97> limit-service.properties\
+copy paste Properties of Min and Max\
+git add -A\
+git commit -m \'93First commit\'94\
+\
+\pard\pardeftab720\partightenfactor0
+
+\b\fs28 \cf2 Section 4.14 Step 7 \'97 Connect Spring Cloud Config Server to Local Git Repository\
+\
+
+\b0 \cf3 We are going to Configure Local Git Repo for Spring-Cloud-Config-Server Application.\
+\pard\pardeftab720\partightenfactor0
+
+\f1 \cf0 \kerning1\expnd0\expndtw0 Add this property into 
+\f4 \cf3 \expnd0\expndtw0\kerning0
+Spring-Cloud-Config-Server\'92s application.properties\
+\pard\pardeftab720\partightenfactor0
+
+\f1\fs24 \cf0 \kerning1\expnd0\expndtw0 \
+spring.cloud.config.server.git.uri=\cf4 file:///Users/\ul muhammadwaheed\ulnone /Desktop/JavaTraining/\ul Micro\ulnone -Services/\ul git\ulnone -\ul localconfig\ulnone -\ul repo\cf0 \ulnone  
+\f0\b\fs28 \cf3 \
+\
+\pard\pardeftab720\partightenfactor0
+
+\b0 \cf3 To enable Spring-cloud-config-server on the 
+\f1 \cf0 SpringCloudConfigServerApplication.java class and add Annotation\
+\pard\pardeftab720\partightenfactor0
+\cf5 @EnableConfigServer\
+\pard\pardeftab720\partightenfactor0
+\cf3 Type http://localhost:8888/limit-services/default\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf2 4.15 Step 8 \'97 Configuration for Multiple Environments in Git Repository\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf3 we can override the properties of a limit-services.properties file such as limit-services-qa.properties, \
+limit-services-dev.properties \
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf3 we can retrieve files by http://localhost:8888/limit-services/dev and http://localhost:8888/limit-services/qa which are the names I have given to the files limit-services-qa.properties, \
+limit-services-dev.properties and values will show up in the order of preference.\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf3 We connected SpringCloudConfigServer to Git in this step and later we will connect LimitService \'93Microservice\'94 to SpringCloudConfigServer and it will make specific values to get picked up.\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf2 4.16 Step 9 \'97 Connect Limits Service to Spring Cloud Config Server\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf3 we will connect LimitService to SpringCloudConfigServer.\
+\
+Changed application.properties to bootstrap.properties in limit-services Application and Configure \
+\pard\pardeftab720\partightenfactor0
+
+\fs24 \cf0 spring.cloud.config.uri=\cf4 http://localhost:8888 
+\fs28 \cf3 within the bootstrap.properties and that connects the LimitService to \
+SpringCloudConfigServer. By default, it picks up the properties from limits-service.properties\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf2 4.17 Step 10 \'97 Configuring Profiles for Limits Service\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf3 In the file bootstrap.properties we can add these values to make the \'91dev\'92 to make the dev config as the Default Config.
+\fs24 \cf15 \
+#which value we want to use, at the moment\cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\fs28 \cf15 spring.profiles.active=\ul dev\
+\pard\pardeftab720\partightenfactor0
+\cf0 \ulnone \
+\pard\pardeftab720\partightenfactor0
+\cf3 we can only add one of the values as the default and it will pick the values we added in the bootstrap.properties file and for rest of the values it will consider the \'91dev\'92 file but we need to commit changes.\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf16 4.18 Step 11 \'97 A review of Spring Cloud Config Server\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf3 SpringCloudConfigServer is being used to manage all the configuration related to Multiple Micro-services. \
+\
+We have to create configurations for the micro service in Git Repository and commit them in, for CurrencyExchangeService we can have currency-exchange-service-qa.properties and put those properties and commit them and than we can connect CurrencyExchangeService to SpringCloudConfigServer and instead of application.properties we should rename it to bootstrap.properties and put the URI for SpringCloudConfigServer\
+these are the steps involved in connecting and thats how we can have all the configurations of all the Micro-Services in the GIT which is very safe approach. \
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf2 4.19 Step 12 \'97 Intro. to Currency Conversion and Currency Exchange Microservice\cf16 \
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf3 CurrencyExchangeService will talk to the Database with the help of JPA and returns the value of the specific currency. \
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf3 CurrencyCalculationService \'97> \
+CurrencyExchangeService \'97> \'93Database\'94\
+LimitService \'97> \'93Configurations\'94
+\f1\b0 \
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf2 4.20 Step 13 \'97 Setting up Currency Exchange Microservice\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf3 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf3 Start.spring.io\
+currency-exchange-service
+\f1\b0 \
+\
+Spring Web Starter, Spring Boot DevTools, Spring Boot Actuator, Config Client\
+\
+After importing on Eclipse in application.properties file add\
+\pard\pardeftab720\partightenfactor0
+
+\fs24 \cf0 spring.application.name=\cf4 currency-exchange-service\cf0  \
+server.port=\cf4 8000\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b\fs28 \cf2 4.21 Step 14 \'97 Create a simple hard coded currency exchange service 
+\f1\b0 \cf3 \
+
+\f2\b \cf2 \
+\pard\pardeftab720\partightenfactor0
+\cf3 Added Bean ExchangeValue.java\
+\pard\pardeftab720\partightenfactor0
+\cf6 public
+\f1\b0 \cf0  
+\f2\b \cf6 class
+\f1\b0 \cf0  ExchangeValue \{\
+	\
+	
+\f2\b \cf6 private
+\f1\b0 \cf0  String \cf12 from\cf0 ;\
+	
+\f2\b \cf6 private
+\f1\b0 \cf0  String \cf12 to\cf0 ;\
+	
+\f2\b \cf6 private
+\f1\b0 \cf0  Long \cf12 id\cf0 ; \cf15 //For each bean we need ID\cf0 \
+	
+\f2\b \cf6 private
+\f1\b0 \cf0  BigDecimal \cf12 conversionMultiple\cf0 ;\
+	\
+	
+\f2\b \cf6 public
+\f1\b0 \cf0  ExchangeValue() \{\
+		\cf15 //super();\cf0 \
+	\}\
+\
+	
+\f2\b \cf6 public
+\f1\b0 \cf0  ExchangeValue(String \cf13 from\cf0 , String \cf13 to\cf0 , Long \cf13 id\cf0 , BigDecimal \cf13 conversionMultiple\cf0 ) \{\
+		
+\f2\b \cf6 super
+\f1\b0 \cf0 ();\
+		
+\f2\b \cf6 this
+\f1\b0 \cf0 .\cf12 from\cf0  = \cf13 from\cf0 ;\
+		
+\f2\b \cf6 this
+\f1\b0 \cf0 .\cf12 to\cf0  = \cf13 to\cf0 ;\
+		
+\f2\b \cf6 this
+\f1\b0 \cf0 .\cf12 id\cf0  = \cf13 id\cf0 ;\
+		
+\f2\b \cf6 this
+\f1\b0 \cf0 .\cf12 conversionMultiple\cf0  = \cf13 conversionMultiple\cf0 ;\
+	\}\
+\
+	
+\f2\b \cf6 public
+\f1\b0 \cf0  String getFrom() \{\
+		
+\f2\b \cf6 return
+\f1\b0 \cf0  \cf12 from\cf0 ;\
+	\}\
+\
+	
+\f2\b \cf6 public
+\f1\b0 \cf0  String getTo() \{\
+		
+\f2\b \cf6 return
+\f1\b0 \cf0  \cf12 to\cf0 ;\
+	\}\
+\
+	
+\f2\b \cf6 public
+\f1\b0 \cf0  Long getId() \{\
+		
+\f2\b \cf6 return
+\f1\b0 \cf0  \cf12 id\cf0 ;\
+	\}\
+\
+	
+\f2\b \cf6 public
+\f1\b0 \cf0  BigDecimal getConversionMultiple() \{\
+		
+\f2\b \cf6 return
+\f1\b0 \cf0  \cf12 conversionMultiple\cf0 ;\
+	\}\
+	\
+and \
+\pard\pardeftab720\partightenfactor0
+\cf5 @RestController\cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf6 public
+\f1\b0 \cf0  
+\f2\b \cf6 class
+\f1\b0 \cf0  CurrencyExchangeController \{\
+	\
+	\cf5 @GetMapping\cf0 (\cf4 "/currency-exchange/from/\{from\}/to/\{to\}"\cf0 )\
+	
+\f2\b \cf6 public
+\f1\b0 \cf0  ExchangeValue retrieveExchangeValue(\cf5 @PathVariable\cf0  String \cf13 from\cf0 , \cf5 @PathVariable\cf0  String \cf13 to\cf0 ) \{\
+		\
+		
+\f2\b \cf6 return
+\f1\b0 \cf0  
+\f2\b \cf6 new
+\f1\b0 \cf0  ExchangeValue(\cf13 from\cf0 ,\cf13 to\cf0 ,1000L,BigDecimal.
+\f5\i valueOf
+\f1\i0 (65)); \
+	\}\
+and with URL \
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf0 http://localhost:8000/currency-exchange/from/USD/to/INR\cf2 \
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf3 we will get hardcoded values back.\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f6\fs26 \cf3 \expnd0\expndtw0\kerning0
+\{"from":"USD","to":"INR","id":1000,"conversionMultiple":65\}
+\f1\fs28 \kerning1\expnd0\expndtw0 \
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf2 4.22 Step 15 \'97 Setting up Dynamic port in the Response\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf3 CurrencyExchangeCalculation calculates the value and CurrencyExchangeService will use the factor which we will be using to exchange on Based of and than we will creating multiple instances of CurrencyExchangeService to Convert based on different currencies and factors and we will use specific instance for that and different instances will be running on different ports and we can use Port as a distinguishing factor between different instances and ports will return back.  \
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf6 private
+\f1\b0 \cf0  String \cf12 from\cf0 ;\
+
+\f2\b \cf6 private
+\f1\b0 \cf0  String \cf12 to\cf0 ;\
+
+\f2\b \cf6 private
+\f1\b0 \cf0  Long \cf12 id\cf0 ; \cf15 //For each bean we need ID\cf0 \
+
+\f2\b \cf6 private
+\f1\b0 \cf0  BigDecimal \cf12 conversionMultiple\cf0 ;\
+
+\f2\b \cf6 private
+\f1\b0 \cf0  
+\f2\b \cf6 int
+\f1\b0 \cf0  \cf12 port\cf0 ;\
+\
+Added port in the ExchangeValue.java Class which can hold the Port number and created Getters and Setters for it.\
+Currency-exchange-value is running on Port 8000 and we want to run it on different Port as well. we can go to Run Button and Select Run Configuration and make a change of name from CurrencyExchangeServiceApplication to CurrencyExchangeServiceApplication8000 make a duplicate of the CurrencyExchangeServiceApplication8000 with CurrencyExchangeServiceApplication8001 and for 8001 at Argument VM arguments: type -Dserver.port=8001 and in this step we added port to our service response. \
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf2 Section 4.23 Step 16 \'97 Configure JPA and Initialized Data \
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf3 We will set up a JPA to talk to the Database.\
+Add in pom.xml\
+\
+\pard\pardeftab720\partightenfactor0
+
+\fs24 \cf17 <\cf18 dependency\cf17 >\cf0 \
+	\cf17 <\cf18 groupId\cf17 >\cf0 org.springframework.boot\cf17 </\cf18 groupId\cf17 >\cf0 \
+	\cf17 <\cf18 artifactId\cf17 >\cf0 spring-boot-starter-data-jpa\cf17 </\cf18 artifactId\cf17 >\cf0 \
+\cf17 </\cf18 dependency\cf17 >\
+\
+<\cf18 dependency\cf17 >\cf0 \
+	\cf17 <\cf18 groupId\cf17 >\cf0 com.h2database\cf17 </\cf18 groupId\cf17 >\cf0 \
+	\cf17 <\cf18 artifactId\cf17 >\cf0 h2\cf17 </\cf18 artifactId\cf17 >\cf0 \
+\cf17 </\cf18 dependency\cf17 >\cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\fs28 \cf3 \
+@Entity and @Id at the ExchangeValue.java\
+\
+Add into application.properties\
+\pard\pardeftab720\partightenfactor0
+
+\fs24 \cf0 spring.jpa.showsql=\cf4 true\cf0 \
+spring.h2.console.enabled=\cf4 true\
+\
+\pard\pardeftab720\partightenfactor0
+
+\fs28 \cf3 Add data.sql file into src/main/response\
+\pard\pardeftab720\partightenfactor0
+
+\fs24 \cf0 \
+Insert into exchange_value(currency_from,currency_to,id,conversion_multiple,port)\
+values(\cf19 'USD'\cf0 ,\cf19 'PKR'\cf0 ,1001,150,0); \
+\
+Insert into exchange_value(currency_from,currency_to,id,conversion_multiple,port)\
+values(\cf19 'USD'\cf0 ,\cf19 'PKR'\cf0 ,1002,165,0); \
+\
+Insert into exchange_value(currency_from,currency_to,id,conversion_multiple,port)\
+values(\cf19 'USD'\cf0 ,\cf19 'PKR'\cf0 ,1003,120,0); \
+\
+\pard\pardeftab720\partightenfactor0
+
+\fs28 \cf0 Run \
+http://localhost:8001/h2-console\
+and it will show up the In-memory database with the values we added.\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf2 Section 4.24 Step 17 \'97 Create a JPA Repository\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf0 we will use Data from the Database as a response from the CurrencyExchangeController.java as a Service.\
+\
+we started a new Interface ExchangeValueRepository extends JpaRepository<ExchangeValue, Long> and within the Interface we have a method \
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf0 ExchangeValue findByFromAndTo(String \cf13 from\cf0 , String \cf13 to\cf0 );\
+JPA Provides the Implementation for this Query Method.\
+\
+\pard\pardeftab720\partightenfactor0
+\cf16 Section 4.25 Step 18 \'97 Setting Up Currency Conversion Microservice\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf3 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf3 spring.start.io and created a new Project with same dependencies as current-exchange-service
+\f1\b0 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\b\fs24 \cf4 currency-conversion-service
+\fs28 \cf3 \
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf3 \
+and added these lines in the application.properties file\
+\pard\pardeftab720\partightenfactor0
+
+\fs24 \cf0 spring.application.name=\cf4 currency-conversion-service\cf0 \
+server.port=\cf4 8100\cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\b\fs28 \cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf2 Section 4.26 Step 19 \'97 Creating service for Currency Conversion\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf3 This is a Class which will take hardcoded values for now and \cf5 \
+@GetMapping\cf0 (\cf4 "/currency-converter/from/\{from\}/to/\{to\}/quantity/\{quantity\}"\cf0 )\
+	
+\f2\b \cf6 public
+\f1\b0 \cf0  CurrencyConversionBean convertCurrency(\cf5 @PathVariable\cf0  String \cf13 from\cf0 ,\
+			\cf5 @PathVariable\cf0  String \cf13 to\cf0 ,\
+			\cf5 @PathVariable\cf0  BigDecimal \cf13 quantity\cf0 ) \{\
+		\
+		
+\f2\b \cf6 return
+\f1\b0 \cf0  
+\f2\b \cf6 new
+\f1\b0 \cf0  CurrencyConversionBean(1L,\cf13 from\cf0 ,\cf13 to\cf0 ,BigDecimal.
+\f7\i\b \cf12 ONE
+\f1\i0\b0 \cf0 ,\cf13 quantity\cf0 ,\cf13 quantity\cf0 ,0);\
+	\}
+\f2\b \cf2 \
+\
+
+\f1\b0 \cf3 And a Class which will take values \
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf6 public
+\f1\b0 \cf0  
+\f2\b \cf6 class
+\f1\b0 \cf0  CurrencyConversionBean \{\
+	\
+	
+\f2\b \cf6 private
+\f1\b0 \cf0  Long \cf12 id\cf0 ;\
+	
+\f2\b \cf6 private
+\f1\b0 \cf0  String \cf12 from\cf0 ;\
+	
+\f2\b \cf6 private
+\f1\b0 \cf0  String \cf12 to\cf0 ;\
+	
+\f2\b \cf6 private
+\f1\b0 \cf0  BigDecimal \cf12 conversionMultiple\cf0 ;\
+	
+\f2\b \cf6 private
+\f1\b0 \cf0  BigDecimal \cf12 quantity\cf0 ;\
+	
+\f2\b \cf6 private
+\f1\b0 \cf0  BigDecimal \cf12 totalCalculatedAmount\cf0 ;\
+	
+\f2\b \cf6 private
+\f1\b0 \cf0  
+\f2\b \cf6 int
+\f1\b0 \cf0  \cf12 port\cf0 ;\
+	\
+and the values from this class gets returned in the convertCurrency Class.\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf2 4.27 Step 20 \'97 Invoking Currency Exchange Microservice from Currency Conversion Microservice\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf3 To invoke an external service, which is exposed using HTTP is REST template and use RestTemplate() and we will be mapping the response coming from 
+\f2\b \cf6 return
+\f1\b0 \cf0  
+\f2\b \cf6 new
+\f1\b0 \cf0  CurrencyConversionBean(1L,\cf13 from\cf0 ,\cf13 to\cf0 ,BigDecimal.
+\f7\i\b \cf12 ONE
+\f1\i0\b0 \cf0 ,\cf13 quantity\cf0 ,\cf13 quantity\cf0 ,0); and map it with response.\
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 @RestController\cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf6 public
+\f1\b0 \cf0  
+\f2\b \cf6 class
+\f1\b0 \cf0  CurrencyConversionController \{\
+	\
+	\cf5 @GetMapping\cf0 (\cf4 "/currency-converter/from/\{from\}/to/\{to\}/quantity/\{quantity\}"\cf0 )\
+	
+\f2\b \cf6 public
+\f1\b0 \cf0  CurrencyConversionBean convertCurrency(\cf5 @PathVariable\cf0  String \cf13 from\cf0 ,\
+			\cf5 @PathVariable\cf0  String \cf13 to\cf0 ,\
+			\cf5 @PathVariable\cf0  BigDecimal \cf13 quantity\cf0 ) \{\
+		\
+		Map<String, String> \cf13 uriVariables\cf0  = 
+\f2\b \cf6 new
+\f1\b0 \cf0  HashMap<>();\
+		\
+		\cf13 uriVariables\cf0 .put(\cf4 "from"\cf0 , \cf13 from\cf0 );\
+		\cf13 uriVariables\cf0 .put(\cf4 "to"\cf0 , \cf13 to\cf0 );\
+\
+		ResponseEntity<CurrencyConversionBean> \cf13 responseEntity\cf0  = \
+				
+\f2\b \cf6 new
+\f1\b0 \cf0  RestTemplate().getForEntity(\
+						\cf4 "http://localhost:8100/currency-converter/from/\{from\}/to/\{to\}"\cf0 ,\
+						CurrencyConversionBean.
+\f2\b \cf6 class
+\f1\b0 \cf0 , \cf13 uriVariables\cf0 );\
+		\
+		CurrencyConversionBean \cf13 response\cf0  =  \cf13 responseEntity\cf0 .getBody();\
+		\
+		
+\f2\b \cf6 return
+\f1\b0 \cf0  
+\f2\b \cf6 new
+\f1\b0 \cf0  CurrencyConversionBean\
+				(\cf13 response\cf0 .getId(),\cf13 from\cf0 ,\cf13 to\cf0 ,\
+				\cf13 response\cf0 .getConversionMultiple(),\
+				\cf13 quantity\cf0 ,\cf13 quantity\cf0 .multiply(\
+				\cf13 response\cf0 .getConversionMultiple()),\
+				\cf13 response\cf0 .getPort());\
+	\}\
+\}\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf2 4.28 Step 21 \'97 Using Feign REST Client for Service Invocation\
+\pard\pardeftab720\partightenfactor0
+\cf3 Feign 
+\f1\b0 makes it very easy to invoke other Micro-services and it also provides is integration with Ripple which is a Client Side Load Balancing Framework. \
+\
+Dependency for Feign\
+\pard\pardeftab720\partightenfactor0
+
+\fs24 \cf17 <\cf18 dependency\cf17 >\cf0 \
+	\cf17 <\cf18 groupId\cf17 >\cf0 org.springframework.cloud\cf17 </\cf18 groupId\cf17 >\cf0 \
+	\cf17 <\cf18 artifactId\cf17 >\cf0 spring-cloud-starter-feign\cf17 </\cf18 artifactId\cf17 >\cf0 \
+\cf17 </\cf18 dependency\cf17 >\
+\
+\pard\pardeftab720\partightenfactor0
+
+\fs28 \cf5 @SpringBootApplication\cf0 \
+\cf5 @EnableFeignClients\cf0 (\cf4 \ul "com.spring.microservices.currencyconversionservice"\cf0 \ulnone )\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf6 public
+\f1\b0 \cf0  
+\f2\b \cf6 class
+\f1\b0 \cf0  CurrencyConversionServiceApplication \{\
+\
+	
+\f2\b \cf6 public
+\f1\b0 \cf0  
+\f2\b \cf6 static
+\f1\b0 \cf0  
+\f2\b \cf6 void
+\f1\b0 \cf0  main(String[] \cf13 args\cf0 ) \{\
+		SpringApplication.
+\f5\i run
+\f1\i0 (CurrencyConversionServiceApplication.
+\f2\b \cf6 class
+\f1\b0 \cf0 , \cf13 args\cf0 );\
+	\}
+\fs24 \
+		\
+Create a Simple Proxy which uses Feign which enables us to call this service.\
+\
+\pard\pardeftab720\partightenfactor0
+
+\fs28 \cf5 @FeignClient\cf0 (name=\cf4 "currency-exchange-service"\cf0 , url=\cf4 "localhost://8000"\cf0 )\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf6 public
+\f1\b0 \cf0  
+\f2\b \cf6 interface
+\f1\b0 \cf0  CurrencyExchangeServiceProxy \{\
+	\
+	\cf5 @GetMapping\cf0 (\cf4 "/currency-exchange/from/\{from\}/to/\{to\}"\cf0 )\
+	
+\f2\b \cf6 public
+\f1\b0 \cf0  CurrencyConversionBean retrieveExchangeValue\
+			(\cf5 @PathVariable\cf0 (\cf4 "from"\cf0 ) String \cf13 from\cf0 , \cf5 @PathVariable\cf0 (\cf4 "to"\cf0 ) String \cf13 to\cf0 );\
+\}\cf3 \
+\
+and added this method in CurrencyConversionController.java\
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 @GetMapping\cf0 (\cf4 "/currency-converter-feign/from/\{from\}/to/\{to\}/quantity/\{quantity\}"\cf0 )\
+	
+\f2\b \cf6 public
+\f1\b0 \cf0  CurrencyConversionBean convertCurrencyFeign(\cf5 @PathVariable\cf0  String \cf13 from\cf0 ,\
+			\cf5 @PathVariable\cf0  String \cf13 to\cf0 ,\
+			\cf5 @PathVariable\cf0  BigDecimal \cf13 quantity\cf0 ) \{\
+		\
+		\cf15 //Feign - Problem 1\cf0 \
+		Map<String, String> \cf13 uriVariables\cf0  = 
+\f2\b \cf6 new
+\f1\b0 \cf0  HashMap<>();\
+		\
+		\cf13 uriVariables\cf0 .put(\cf4 "from"\cf0 , \cf13 from\cf0 );\
+		\cf13 uriVariables\cf0 .put(\cf4 "to"\cf0 , \cf13 to\cf0 );\
+\
+		ResponseEntity<CurrencyConversionBean> \cf13 responseEntity\cf0  = \
+				
+\f2\b \cf6 new
+\f1\b0 \cf0  RestTemplate().getForEntity(\
+						\cf4 "http://localhost:8100/currency-converter/from/\{from\}/to/\{to\}"\cf0 ,\
+						CurrencyConversionBean.
+\f2\b \cf6 class
+\f1\b0 \cf0 , \cf13 uriVariables\cf0 );\
+		\
+		CurrencyConversionBean \cf13 response\cf0  =  \cf13 responseEntity\cf0 .getBody();\
+		\
+		
+\f2\b \cf6 return
+\f1\b0 \cf0  
+\f2\b \cf6 new
+\f1\b0 \cf0  CurrencyConversionBean\
+				(\cf13 response\cf0 .getId(),\cf13 from\cf0 ,\cf13 to\cf0 ,\
+				\cf13 response\cf0 .getConversionMultiple(),\
+				\cf13 quantity\cf0 ,\cf13 quantity\cf0 .multiply(\
+				\cf13 response\cf0 .getConversionMultiple()),\
+				\cf13 response\cf0 .getPort());\
+	\}\
+\
+and when we use Proxy it simplifies the code with the help of Feign:\
+\
+\cf5 @GetMapping\cf0 (\cf4 "/currency-converter/from/\{from\}/to/\{to\}/quantity/\{quantity\}"\cf0 )\
+	
+\f2\b \cf6 public
+\f1\b0 \cf0  CurrencyConversionBean convertCurrency(\cf5 @PathVariable\cf0  String \cf13 from\cf0 ,\
+			\cf5 @PathVariable\cf0  String \cf13 to\cf0 ,\
+			\cf5 @PathVariable\cf0  BigDecimal \cf13 quantity\cf0 ) \{\
+				\
+		CurrencyConversionBean \cf13 response\cf0  = \cf12 proxy\cf0 .retrieveExchangeValue(\cf13 from\cf0 , \cf13 to\cf0 ); \
+		\
+		
+\f2\b \cf6 return
+\f1\b0 \cf0  
+\f2\b \cf6 new
+\f1\b0 \cf0  CurrencyConversionBean\
+				(\cf13 response\cf0 .getId(),\cf13 from\cf0 ,\cf13 to\cf0 ,\
+				\cf13 response\cf0 .getConversionMultiple(),\
+				\cf13 quantity\cf0 ,\cf13 quantity\cf0 .multiply(\
+				\cf13 response\cf0 .getConversionMultiple()),\
+				\cf13 response\cf0 .getPort());\
+	\}\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf2 \
+4.29 Step 22 \'97 Setting up Client Side Load Balancing with Ribbon\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf3 Ribbon can help us using the configuration for Feign to distribute different calls between different instances of 
+\f2\b CurrencyExchangeServices
+\f1\b0  so we are going to enable RIBBON on \
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf3 CurrencyCalculationService
+\f1\b0  and we will be able to distribute load between different instances of 
+\f2\b CurrencyExchangeServices.\
+\
+Currency-Conversion-Service \'97> POM.xml\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0\fs24 \cf17 \ul \ulc17 <\cf18 \ulc18 dependency\cf17 \ulc17 >\cf0 \ulnone \
+        	\cf20 <!-- Spring Ribbon starter -->\cf0 \
+        	\cf17 <\cf18 groupId\cf17 >\cf0 org.springframework.cloud\cf17 </\cf18 groupId\cf17 >\cf0 \
+        	\cf17 <\cf18 artifactId\cf17 >\cf0 spring-cloud-starter-ribbon\cf17 </\cf18 artifactId\cf17 >\cf0 \
+    	\cf17 </\cf18 dependency\cf17 >\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b\fs28 \cf3 Currency-Conversion-Service \'97> application.properties \
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0\fs24 \cf0 spring.application.name=\cf4 currency-conversion-service\cf0 \
+server.port=\cf4 8100\
+\cf0 \
+//This enables the load to get distributed \
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf0 currency-exchange-service.ribbon.listOfServers=\cf4 http://localhost:8000,http://localhost:8001\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0\fs28 \cf3 and \
+\pard\pardeftab720\partightenfactor0
+\cf15 //@FeignClient(name="currency-exchange-service", \cf15 \ul \ulc15 url\ulnone ="\ul localhost\ulnone ://8000")\cf0 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf15 //We \ul dont\ulnone  need to give URL when we add RibbonClient because now we have to distribute\cf0 \
+\cf15 //the load among different Instances and we will configure\cf0 \
+\cf15 //it in application.properties\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf5 @FeignClient\cf0 (name=\cf4 "currency-exchange-service"\cf0 )\
+\cf5 @RibbonClient\cf0 (name=\cf4 "currency-exchange-service"\cf0 )\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf6 public
+\f1\b0 \cf0  
+\f2\b \cf6 interface
+\f1\b0 \cf0  CurrencyExchangeServiceProxy \{\
+	\
+	\cf5 @GetMapping\cf0 (\cf4 "/currency-exchange/from/\{from\}/to/\{to\}"\cf0 )\
+	
+\f2\b \cf6 public
+\f1\b0 \cf0  CurrencyConversionBean retrieveExchangeValue\
+			(\cf5 @PathVariable\cf0 (\cf4 "from"\cf0 ) String \cf13 from\cf0 , \cf5 @PathVariable\cf0 (\cf4 "to"\cf0 ) String \cf13 to\cf0 );\
+\}\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf2 4.30 Step 23 \'97 Running Client side Load balancing with Ribbon\
+
+\f1\b0 \cf3 Go to \'97> \'91RUN\'92 button and go to RUN CONFIGURATION, copy paste 8000 and make duplicate of it and change it to 8002 and go to Arguments and under VM arguments type \'91-Dserver.port=8002\'92 \
+By doing this we are Evenly Load Balancing with Ribbon to distribute load of Currency Exchange Service.\
+\
+
+\f2\b \cf16 4.31 Step 24 \'97 Understanding the need for a Naming Server\
+
+\f1\b0 \cf3 Based on the Load we want to  Increase or Decrease the number of the services dynamically. All the instances of all the micro services would register with the naming Eureka Naming Server and this process is called Service Registration. \
+When one Service wants to talk to another service it will talk to Naming Service about how many instances  of the other service are available this process is called Service discovery.\
+\
+CurrencyCalculationService \'97>\
+CurrencyExchangeService    \'97>  EurekaNamingServer\
+LimitsService              \'97> \
+\
+
+\f2\b \cf2 4.32 Step 25 \'97 Setting up Eureka Naming Server\
+
+\f1\b0 \cf3 We need to create a component for the Eureka Server and update services to connect to Eureka Server and currently ribbon is connected to CurrencyCalculationService and we will use ribbon to find details from the NamingServer.  \
+\
+Go to start.spring.io and add Devtools, Eureka Server, Config Client, Actuator \
+\
+Import the Project and add annotation \
+\pard\pardeftab720\partightenfactor0
+\cf5 @SpringBootApplication\cf0 \
+\cf5 @EnableEurekaServer\cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf6 public
+\f1\b0 \cf0  
+\f2\b \cf6 class
+\f1\b0 \cf0  NetflixEurekaNamingServerApplication \{\
+	
+\f2\b \cf6 public
+\f1\b0 \cf0  
+\f2\b \cf6 static
+\f1\b0 \cf0  
+\f2\b \cf6 void
+\f1\b0 \cf0  main(String[] \cf13 args\cf0 ) \{\
+		SpringApplication.
+\f5\i run
+\f1\i0 (NetflixEurekaNamingServerApplication.
+\f2\b \cf6 clas
+\f1\b0 \cf0 ,\cf13 args\cf0 );\
+	\}\
+\}\
+\
+and add in application.properties of netflix-eureka-naming-server.\
+\
+\pard\pardeftab720\partightenfactor0
+
+\fs24 \cf0 spring.application.name=\cf4 \ul \ulc4 netflix\ulnone -\ul eureka\ulnone -naming-server\cf0 \
+server.port=\cf4 8761\cf0 \
+eureka.client.register-with-eureka=\cf4 false\cf0 \
+eureka.client.fetch-registry=\cf4 false\
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\fs28 \cf3 and type {\field{\*\fldinst{HYPERLINK "http://localhost:8761/"}}{\fldrslt 
+\f8\fs24 \cf21 \expnd0\expndtw0\kerning0
+\ul \ulc21 http://localhost:8761/}}
+\f8\fs24 \cf21 \expnd0\expndtw0\kerning0
+\ul \ulc21  \
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b\fs28 \cf2 \ulnone 4.33 Step 26 \'97 Connecting Currency Conversion Microservice to Eureka\
+
+\f1\b0 \cf3 add in currency-conversion-service.pom\
+\pard\pardeftab720\partightenfactor0
+
+\fs24 \cf17 \kerning1\expnd0\expndtw0 \ul \ulc17 <\cf18 \ulc18 dependency\cf17 \ulc17 >\cf0 \ulnone \
+        	\cf20 <!-- EUREKA Naming Server -->\cf0 \
+        	\cf17 <\cf18 groupId\cf17 >\cf0 org.springframework.cloud\cf17 </\cf18 groupId\cf17 >\cf0 \
+        	\cf17 <\cf18 artifactId\cf17 >\cf0 spring-cloud-starter-eureka\cf17 </\cf18 artifactId\cf17 >\cf0 \
+    	\cf17 </\cf18 dependency\cf17 >
+\f8 \cf21 \expnd0\expndtw0\kerning0
+\ul \ulc21 \
+\
+\pard\pardeftab720\partightenfactor0
+
+\f1\fs28 \cf3 \ulnone Add annotation \
+\pard\pardeftab720\partightenfactor0
+\cf5 \kerning1\expnd0\expndtw0 @EnableDiscoveryClient //to register with Eureka Naming Server\cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf6 public
+\f1\b0 \cf0  
+\f2\b \cf6 class
+\f1\b0 \cf0  CurrencyConversionServiceApplication \{\
+\
+	
+\f2\b \cf6 public
+\f1\b0 \cf0  
+\f2\b \cf6 static
+\f1\b0 \cf0  
+\f2\b \cf6 void
+\f1\b0 \cf0  main(String[] \cf13 args\cf0 ) \{\
+		SpringApplication.
+\f5\i run
+\f1\i0 (CurrencyConversionServiceApplication.
+\f2\b \cf6 class
+\f1\b0 \cf0 , \cf13 args\cf0 );\
+	\}\
+\}\
+\
+and than we have to configure the URL for Eureka by adding properties to currency-conversion-service \'97> application.properties file\
+\pard\pardeftab720\partightenfactor0
+
+\fs24 \cf0 \
+spring.application.name=\cf4 currency-conversion-service\cf0 \
+server.port=\cf4 8100\cf0 \
+http:\cf4 //\cf4 \ul \ulc21 localhost\cf4 \ulnone :8761/\cf4 \ul \ulc21 eureka\cf0 \ulnone \
+eureka.client.service-url.default-zone=\cf4 http://localhost:8761/eureka\cf0 \
+currency-exchange-service.ribbon.listOfServers=\cf4 http://localhost:8000,\cf0  \cf4 http://localhost:8001\
+\
+\pard\pardeftab720\partightenfactor0
+
+\fs28 \cf3 After than when we open the Eureka Server we can see the registered service will appear.\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf2 4.34 Step 27 \'97 Connecting Currency Exchange Microservice to Eureka\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf3 Copy steps from last one for currency-exchange-service.\
+POM.XML file and application.properties\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf2 4.35 Step 28 \'97 Distributing calls using Eureka and Ribbon\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf3 When CurrencyCalculationService invokes CurrencyExchangeService we would want NamingServer to find out details of CurrencyExchangeService and rather than hardcoding all the URLs we want Ribbon to talk to NamingServer and retrieve all the instances of the CurrencyExchangeService and when we disable listOfServers it will start talking to Eureka Server. \
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf22 4.36 Step 29 \'97 A review of implementing Eureka, Ribbon and Feign\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf3 Started with couple of services and to make it Load balancing we  introduced Ribbon and feign is used to make RESTful API calls easy. All the calls made by CurrencyCalculationService are evenly distributed between two instances of CurrencyExchangeService and we connected both services with NamingServer and instead of hardcoding URLs we provided URLs to NamingServer and NamingServer talks to Services and takes in the URLs to display data. Ribbon provides client side load balancing. \
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf22 4.37 Step 30 \'97 Introduction to API Gateways \
+\pard\pardeftab720\partightenfactor0
+\cf3             API GATEWAYS\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf3 Authentication, authorization and security\
+Rate Limits\
+Fault Toleration\
+Service Aggregation\
+\
+We will make all the services so that when make a call it will go through API Gateways and API Gateways will take care of all the features such as Authentication, logged and they are fault tolerant. API services can also provides aggregation services around multiple micro services because all the calls go through API Gateways so they serve best place for Analytics and debugging. \
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf22 4.38 Step 31 \'97 Setting up Zuul API Gateway\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf3 1. Create a component for Zuul API Gateway server\
+2. Decide what it should do when it intercepts the request\
+3. right request go through\
+\
+1. go to spring initializer start.spring.io\
+dependencies: zuul, Eureka Discovery Client, Spring Boot DevTools, Actuator \
+\
+NetflixZuulApiGatewayServerApplication.java\
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 @SpringBootApplication\cf0 \
+\cf5 @EnableZuulProxy\cf0 \
+\cf5 @EnableDiscoveryClient\cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf6 public
+\f1\b0 \cf0  
+\f2\b \cf6 class
+\f1\b0 \cf0  NetflixZuulApiGatewayServerApplication \{\
+\
+	
+\f2\b \cf6 public
+\f1\b0 \cf0  
+\f2\b \cf6 static
+\f1\b0 \cf0  
+\f2\b \cf6 void
+\f1\b0 \cf0  main(String[] \cf13 args\cf0 ) \{\
+		SpringApplication.
+\f5\i run
+\f1\i0 (NetflixZuulApiGatewayServerApplication.
+\f2\b \cf6 class
+\f1\b0 \cf0 , \cf13 args\cf0 );\
+	\}\
+\
+\}\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf2 4.39 Step 32 \'97 Implementing ZuulLogging Filter\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf3 create a new class ZuulLoggingFilter.java\
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 @Component\cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf6 public
+\f1\b0 \cf0  
+\f2\b \cf6 class
+\f1\b0 \cf0  ZuulLoggingFilter 
+\f2\b \cf6 extends
+\f1\b0 \cf0  ZuulFilter \{\
+\
+	
+\f2\b \cf6 private
+\f1\b0 \cf0  Logger \cf12 logger\cf0  = LoggerFactory.
+\f5\i getLogger
+\f1\i0 (
+\f2\b \cf6 this
+\f1\b0 \cf0 .getClass());\
+	\
+	\cf5 @Override\cf0 \
+	
+\f2\b \cf6 public
+\f1\b0 \cf0  
+\f2\b \cf6 boolean
+\f1\b0 \cf0  shouldFilter() \{\
+		
+\f2\b \cf6 return
+\f1\b0 \cf0  
+\f2\b \cf6 true
+\f1\b0 \cf0 ; //filter goes through when it is TRUE\
+	\}\
+\
+	\cf5 @Override\cf0 \
+	
+\f2\b \cf6 public
+\f1\b0 \cf0  Object run() 
+\f2\b \cf6 throws
+\f1\b0 \cf0  ZuulException \{\
+		\
+		\cf15 //This will give current HTTP request, which is being handled\cf0 \
+		HttpServletRequest \cf13 request\cf0  = RequestContext.
+\f5\i getCurrentContext
+\f1\i0 ().getRequest();\
+		\
+		\cf12 logger\cf0 .info(\cf4 "request -> \{\} request uri -> \{\}"\cf0 , \
+				\cf13 request\cf0 , \cf13 request\cf0 .getRequestURI());\
+		
+\f2\b \cf6 return
+\f1\b0 \cf0  
+\f2\b \cf6 null
+\f1\b0 \cf0 ;\
+	\}\
+\
+	\cf5 @Override\cf0 \
+	
+\f2\b \cf6 public
+\f1\b0 \cf0  String filterType() \{\
+		
+\f2\b \cf6 return
+\f1\b0 \cf0  \cf4 "pre"\cf0 ; //\'93pre\'94 filter types\
+	\}\
+\
+	\cf5 @Override\cf0 \
+	
+\f2\b \cf6 public
+\f1\b0 \cf0  
+\f2\b \cf6 int
+\f1\b0 \cf0  filterOrder() \{\
+ 		
+\f2\b \cf6 return
+\f1\b0 \cf0  1; //we can order 1,2,3,4 accordingly\
+	\}
+\f2\b \cf2 \
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf3 \
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf2 4.40 Step 33 \'97 Executing a request through Zuul API Gateway\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf3 To execute a request through Zuul API, we have to give the port number in the URL along the application name and URI\
+\
+http://localhost:8765/\{application-name\}/\{uri\}\
+for example we want to execute the request of currency exchange service\
+we can type \
+http://localhost:8765/currency-exchange-service/currency-exchange/from/EUR/to/INR\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf2 4.41 Step 34 \'97 Setting up Zuul API Gateway between micro service invocations\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf15 Currency-Conversion-Service.java\
+//we \cf15 \ul \ulc15 dont\ulnone  have to connect to name=currency-exchange-service anymore\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf15 //because we are executing our request through \ul Zuul\ulnone  API Gateway\cf0 \
+\cf15 // so we have to mention that \cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf5 @FeignClient\cf0 (name=\cf4 "netflix-zuul-api-gateway-server"\cf0 )\
+\cf5 @RibbonClient\cf0 (name=\cf4 "currency-exchange-service"\cf0 )\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf6 public
+\f1\b0 \cf0  
+\f2\b \cf6 interface
+\f1\b0 \cf0  CurrencyExchangeServiceProxy \{\
+	\
+	\cf5 @GetMapping\cf0 (\cf4 "/currency-exchange-service/currency-exchange/from/\{from\}/to/\{to\}"\cf0 )\
+	
+\f2\b \cf6 public
+\f1\b0 \cf0  CurrencyConversionBean retrieveExchangeValue\
+			(\cf5 @PathVariable\cf0 (\cf4 "from"\cf0 ) String \cf13 from\cf0 , \cf5 @PathVariable\cf0 (\cf4 "to"\cf0 ) String \cf13 to\cf0 );\
+\}
+\f2\b \cf2 \
+\pard\pardeftab720\partightenfactor0
+\cf22 \
+Tip: Zuul uses AppName in the url to talk to Eureka and find the url of the service.\
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 4.42 Step 35 \'97 Introduction to distributed Tracing\
+
+\f1\b0 \cf3 Distributed Tracing lets us keep track of the whole application that which Microservice or its instance or the server is causing problem so we can debug it rather than making the problem complex. \
+we can have a specific component which gives us the log of what happens with the specific request.\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf3 Spring Cloud Sleuth
+\f1\b0  assigns a specific ID to the Request and 
+\f2\b Zipkin is a Distributed Tracing system
+\f1\b0 . 
+\f2\b \cf2 \
+\pard\pardeftab720\partightenfactor0
+\cf22 \
+4.43 Step 36 \'97 Implementing Spring Cloud Sleuth\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf3 add in netflix-zuul\'92s POM.xml file\
+\
+\pard\pardeftab720\partightenfactor0
+
+\fs24 \cf17 \ul \ulc17 <\cf18 \ulc18 dependency\cf17 \ulc17 >\cf0 \ulnone \
+	\cf17 <\cf18 groupId\cf17 >\cf0 org.springframework.cloud\cf17 </\cf18 groupId\cf17 >\cf0 \
+	\cf17 <\cf18 artifactId\cf17 >\cf0 spring-cloud-starter-slueth\cf17 </\cf18 artifactId\cf17 >\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf17 </\cf18 dependency\cf17 >\
+\
+\pard\pardeftab720\partightenfactor0
+
+\fs28 \cf3 we have to create a Sampler which intercepts the requests made from that particular Micro-service and add \
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 @SpringBootApplication\cf0 \
+\cf5 @EnableZuulProxy\cf0 \
+\cf5 @EnableDiscoveryClient\cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf6 public
+\f1\b0 \cf0  
+\f2\b \cf6 class
+\f1\b0 \cf0  NetflixZuulApiGatewayServerApplication \{\
+\
+	
+\f2\b \cf6 public
+\f1\b0 \cf0  
+\f2\b \cf6 static
+\f1\b0 \cf0  
+\f2\b \cf6 void
+\f1\b0 \cf0  main(String[] \cf13 args\cf0 ) \{\
+		SpringApplication.
+\f5\i run
+\f1\i0 (NetflixZuulApiGatewayServerApplication.
+\f2\b \cf6 class
+\f1\b0 \cf0 , \cf13 args\cf0 );\
+	\}\
+	\
+	\cf5 @Bean\cf0 \
+	
+\f2\b \cf6 public
+\f1\b0 \cf0  \ul \ulc17 AlwaysSampler\ulnone  defaultSampler() \{\
+		
+\f2\b \cf6 return
+\f1\b0 \cf0  
+\f2\b \cf6 new
+\f1\b0 \cf0  \ul \ulc17 AlwaysSampler\ulnone ();\
+	\}\
+\}\
+\
+in Currency-conversion, currency-exchange and netflix-zuul\'92s main Java class.\
+\
+in CurrencyConversionController.java \
+\
+	
+\f2\b \cf6 private
+\f1\b0 \cf0  Logger \cf12 logger\cf0  = LoggerFactory.
+\f5\i getLogger
+\f1\i0 (
+\f2\b \cf6 this
+\f1\b0 \cf0 .getClass());\
+\
+logger.info(\'93\{\}\'94,response);\
+\
+\
+\
+in CurrencyExchangeController.java\
+\
+	
+\f2\b \cf6 private
+\f1\b0 \cf0  Logger \cf12 logger\cf0  = LoggerFactory.
+\f5\i getLogger
+\f1\i0 (
+\f2\b \cf6 this
+\f1\b0 \cf0 .getClass());\
+\
+logger.info(\'93\{\}\'94, exchangeValue);\
+\
+and NetflixZuul add a class ZuulLoggingFilter.java\
+\
+we will see a log with specific ID. it is assining an ID to each request and we are able to trace ID. We will be able to see the same request with Zuul API Gateway server and all other micro services we have configured it in and Zipkin is a distributed tracing system which helps us keep track of the requests.\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf2 4.44 Step 37 \'97 Introduction to Distributed tracing with Zipkin\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf3 we will use 
+\f2\b ZipkinDistributedTracingServer 
+\f1\b0 to get a consolidated view of what is happening Micro-services. we will make all the micro-services to send loggings to 
+\f2\b ZipkinDistributedTracingServer 
+\f1\b0 and after that we will make UI to send request ID to Tracing Server to what happened to the request. we will use 
+\f2\b RabbitMQ
+\f1\b0  to put all the requests to Queue. \
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf23 4.45 Step 38 \'97 Installing Rabbit MQ\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf3 we need to install RabbitMQ \
+brew update \
+brew install rabbitmq\
+after we install we can launch it by the command\
+/usr/local/sbin/rabbitmq-server\
+\
+it means the server is launched up \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\fs22 \cf24 \cb25 \CocoaLigature0 Starting broker...\
+ completed with 6 plugins.
+\fs28 \cf3 \cb1 \CocoaLigature1 \
+\pard\pardeftab720\partightenfactor0
+\cf3 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf23 4.46 Step 39 \'97 Setting up Distributed Tracing with Zipkin\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf3 Start.spring.io and download Zipkin UI, Zipkin Stream, Stream Rabbit\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf2 4.47 Step 40 \'97 Connecting micro services to Zipkin\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf3 Add these dependencies to all Micro services \
+\pard\pardeftab720\partightenfactor0
+
+\fs24 \cf17 \ul \ulc17 		<\cf18 \ulc18 dependency\cf17 \ulc17 >\cf0 \ulnone \
+			\cf17 <\cf18 groupId\cf17 >\cf0 org.springframework.cloud\cf17 </\cf18 groupId\cf17 >\cf0 \
+			\cf17 <\cf18 artifactId\cf17 >\cf0 spring-cloud-starter-sleuth-zipkin\cf17 </\cf18 artifactId\cf17 >\cf0 \
+		\cf17 </\cf18 dependency\cf17 >\cf0 \
+		\
+		\cf17 <\cf18 dependency\cf17 >\cf0 \
+			\cf17 <\cf18 groupId\cf17 >\cf0 org.springframework.cloud\cf17 </\cf18 groupId\cf17 >\cf0 \
+			\cf17 <\cf18 artifactId\cf17 >\cf0 spring-cloud-starter-bus-amqp\cf17 </\cf18 artifactId\cf17 >\cf0 \
+		\cf17 </\cf18 dependency\cf17 >\
+\
+\pard\pardeftab720\partightenfactor0
+
+\fs28 \cf3 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf2 bus-amqp is a dependency which connects the Micro service to RabbitMQ. \
+\
+4.48 Step 41 \'97 Using Zipkin UI Dashboard to trace requests\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf3 add\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf26 import
+\f1\b0 \cf0  \ul zipkin\ulnone .server.EnableZipkinServer;\
+\
+\cf27 @\cf0 \ul \ulc0 EnableZipkinServer\ulnone  \
+\cf27 @SpringBootApplication\cf0 \
+
+\f2\b \cf26 public
+\f1\b0 \cf0  
+\f2\b \cf26 class
+\f1\b0 \cf0  ZipkinDistributedTracingServerApplication \{\
+\
+	
+\f2\b \cf26 public
+\f1\b0 \cf0  
+\f2\b \cf26 static
+\f1\b0 \cf0  
+\f2\b \cf26 void
+\f1\b0 \cf0  main(String[] \cf28 args\cf0 ) \{\
+		SpringApplication.
+\f5\i run
+\f1\i0 (ZipkinDistributedTracingServerApplication.
+\f2\b \cf26 class
+\f1\b0 \cf0 , \cf28 args\cf0 );\
+	\}\
+\
+\}\
+\
+
+\f2\b \cf29 4.49 Step 42 \'97 Understanding the need of Spring Cloud Bus\
+
+\f1\b0 \cf3 We connected limits-service to Spring Cloud Config Server and we saved configurations of limits-service in Git Repository and than connected limits-service to SpringCloudConfigServer.\
+Run limits-service and spring-cloud-config-server at the same time.\
+http://localhost:8080/limits\
+create a duplicate instance of limits-service by RUN CONFIGURATIONS and add 8081 and -Dserver.port=8081\
+http://localhost:8081/limits\
+\
+change min and max in limits-service application.properties file and commit those changes and we need to fire a POST request at Postman for the changes to get reflect. \
+\pard\pardeftab720\partightenfactor0
+
+\fs24 \cf0 http://localhost:\cf30 8080/application/refresh
+\fs28 \cf3 \
+
+\fs24 \cf0 management.security.enabled=\cf30 false to make security enable so we have set requests from POSTMAN \
+\pard\pardeftab720\partightenfactor0
+
+\fs28 \cf3 The instance we set the new values and send POSTMAN request the changes will reflect that particular instances.\
+And when we have 100 mic-services with multiple instances than it will be a pain to send URL for each micro-services instance thats where we use
+\f2\b  SPRING CLOUD BUS \
+\
+\cf31 4.50 Step 43 \'97 Implementing Spring Cloud Bus\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf3 /usr/local/sbin/rabbitmq-server Start RabbitMQ server \
+and add in the spring-config and limits-service POM.xml file\
+\pard\pardeftab720\partightenfactor0
+
+\fs24 \cf32 		<\cf33 dependency\cf32 >\cf0 \
+			\cf32 <\cf33 groupId\cf32 >\cf0 org.springframework.cloud\cf32 </\cf33 groupId\cf32 >\cf0 \
+			\cf32 <\cf33 artifactId\cf32 >\cf0 spring-cloud-starter-bus-amqp\cf32 </\cf33 artifactId\cf32 >\cf0 \
+		\cf32 </\cf33 dependency\cf32 >
+\f2\b\fs28 \cf2 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \
+4.51 Step \'97 Fault Tolerance with Hystix\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf3 Add this in Pom.xml of limits-service
+\fs24 \cf32 		\
+\
+<\cf33 dependency\cf32 >\cf0 \
+			\cf32 <\cf33 groupId\cf32 >\cf0 org.springframework.cloud\cf32 </\cf33 groupId\cf32 >\cf0 \
+			\cf32 <\cf33 artifactId\cf32 >\cf0 spring-cloud-starter-hystrix\cf32 </\cf33 artifactId\cf32 >\cf0 \
+		\cf32 </\cf33 dependency\cf32 >
+\f2\b\fs28 \cf2 \
+\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf27 @RestController\cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\b \cf26 public
+\f1\b0 \cf0  
+\f2\b \cf26 class
+\f1\b0 \cf0  LimitsConfigurationController \{\
+	\
+	\cf27 @Autowired\cf0 \
+	
+\f2\b \cf26 private
+\f1\b0 \cf0  Configuration \cf34 configuration\cf0 ;\
+	\
+	\cf27 @GetMapping\cf0 (\cf30 "/limits"\cf0 )\
+	
+\f2\b \cf26 public
+\f1\b0 \cf0  LimitConfiguration retrieveLimitsFromConfigurations() \{\
+		\
+		
+\f2\b \cf26 return
+\f1\b0 \cf0  
+\f2\b \cf26 new
+\f1\b0 \cf0  LimitConfiguration(\cf34 configuration\cf0 .getMaximum(),\
+				\cf34 configuration\cf0 .getMinimum());\
+	\}\
+	\
+	\cf27 @GetMapping\cf0 (\cf30 "/fault-tolerance-example"\cf0 )\
+	\cf27 @HystrixCommand\cf0 (fallbackMethod=\cf30 "fallbackRetrieveConfiguration"\cf0 )\
+	
+\f2\b \cf26 public
+\f1\b0 \cf0  LimitConfiguration retrieveConfiguration() \{\
+		
+\f2\b \cf26 throw
+\f1\b0 \cf0  
+\f2\b \cf26 new
+\f1\b0 \cf0  RuntimeException(\cf30 "Not Available"\cf0 );\
+	\}\
+	\
+	
+\f2\b \cf26 public
+\f1\b0 \cf0  LimitConfiguration fallbackRetrieveConfiguration() \{\
+		
+\f2\b \cf26 return
+\f1\b0 \cf0  
+\f2\b \cf26 new
+\f1\b0 \cf0  LimitConfiguration(9,999);\
+	\}\
+\}\
+\
+Common Features of Microservices\
+\'97 Small\
+\'97 Independent deployment\
+\'97 Simple communication \
+\'97 Stateless\
+\'97 Automated build and deployment\
+\
+What Next \'97> More Readings about Microservices and 12 Factor App and Spring Cloud.\
+\
+}
